@@ -1,5 +1,8 @@
+// Initialise the variables we need for the traits
 let squareInfo = [];
-let colourInfo = [];
+let colourInfo = new Set();
+let gridDivs;
+let gridSpacing;
 
 function pickColour() {
   let allowedColors = [
@@ -29,7 +32,7 @@ function setup() {
   // Create an object defining the traits of our token
   let traits = {
     "Number of Squares": squareInfo.length,
-    "Number of Colours": ??,
+    "Number of Colours": colourInfo.length,
     "Grid Divisions": gridDivs,
     "Grid Spacing": gridSpacing,
   };
@@ -40,7 +43,7 @@ function setup() {
   // Also set a name and description for this token
   hl.token.setName(`Generative Mondrian #${hl.tx.tokenId}`);
   hl.token.setDescription(
-    `This is an token generated as part of an example project for using hl-gen.js. It has ${numberOfSquares} windows with random colors. The timestamp of the mint was ${hl.tx.timestamp}. The minting wallet address was ${hl.tx.walletAddress}`
+    `This is an token generated as part of an example project for using hl-gen.js. It has ${squareInfo.length} windows with ${colourInfo.length} different colors. The timestamp of the mint was ${hl.tx.timestamp}. The minting wallet address was ${hl.tx.walletAddress}`
   );
 
   // Construct the grid
@@ -50,6 +53,9 @@ function setup() {
 function draw() {
   background(256);
   drawGrid();
+
+  // Trigger the preview image
+  hl.token.capturePreview();
 }
 
 function constructRandomGrid() {
@@ -121,7 +127,8 @@ function drawGrid() {
     
     let windowColour = pickColour();
     drawWindow(s.posX * gridSpacing + padding, s.posY * gridSpacing + padding, s.dim * gridSpacing, s.dim * gridSpacing, windowColour);
-    
+    colourInfo.add(windowColour);
+
     // rect(s.posX * gridSpacing + padding, s.posY * gridSpacing + padding,
     //   s.dim * gridSpacing, s.dim * gridSpacing);
   }
@@ -332,4 +339,26 @@ function drawWindow(x, y, w, h, windowColour) {
   line (x+w-4, y+h-9, x+w-4, y+40)
 
 
+}
+
+/*
+ * Window resize
+ */
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+}
+
+
+/*
+ * Keyboard shortcuts for saving, redrawing, etc.
+ */
+function keyTyped() {
+  switch (key) {
+    case "s":
+      saveCanvas();
+      break;
+    case "r":
+      redraw();
+      break;
+  }
 }
