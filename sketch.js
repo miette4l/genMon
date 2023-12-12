@@ -360,5 +360,17 @@ function drawWindow(x, y, w, h, windowColour) {
 }
 
 function windowResized() {
-  resizeCanvas(800, 800);
+  // Calculate the maximum allowed scaleFactor to prevent the image from getting too big
+  let maxScaleFactor = min(windowWidth / 800, windowHeight / 800);
+
+  // Calculate the new canvas size based on the scaled dimensions
+  let newCanvasWidth = 800 * maxScaleFactor;
+  let newCanvasHeight = 800 * maxScaleFactor;
+
+  // Set the canvas size
+  resizeCanvas(newCanvasWidth, newCanvasHeight);
 }
+
+// function windowResized() {
+//   resizeCanvas(800, 800);
+// }
