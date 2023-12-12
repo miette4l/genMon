@@ -18,7 +18,7 @@ function makeSquare(posX, posY, dim) {
 }
 
 function setup() {
-  createCanvas(800, 800);
+  createCanvas(windowWidth, windowHeight);
   noLoop();
 
   noFill();
