@@ -4,26 +4,35 @@ let colourInfo = new Set();
 let gridDivs;
 let gridSpacing;
 
-function pickColour() {
-  let allowedColors = [
-    { r: 255, g: 0, b: 0 },  // Red
-    { r: 255, g: 255, b: 0 }, // Yellow
-    { r: 0, g: 0, b: 255 },   // Blue
-    { r: 255, g: 255, b: 255 }, // White
-    { r: 0, g: 0, b: 0 } // Black
-  ];
-  let randomColor = hl.randomElement(allowedColors);
+let allowedColors = [
+  { r: 255, g: 0, b: 0 },  // Red
+  { r: 255, g: 255, b: 0 }, // Yellow
+  { r: 0, g: 0, b: 255 },   // Blue
+  { r: 255, g: 255, b: 255 }, // White
+  { r: 0, g: 0, b: 0 } // Black
+];
+let colorSequence = pickRandomSequence(allowedColors, length=50);
 
+function pickRandomSequence(arr, length = 50) {
+  let randomSequence = [];
+  for (let i = 0; i < length; i++) {
+    randomSequence.push(hl.randomElement(arr));
+  }
+  return randomSequence;
+}
+
+function getNumber(nextColor) {
   // Concatenate R, G, and B values into a 9-digit number
-  let colorNumber = randomColor.r * 1000000 + randomColor.g * 1000 + randomColor.b;
+  let colorNumber = nextColor.r * 1000000 + nextColor.g * 1000 + nextColor.b;
 
-  return { ...randomColor, number: colorNumber };
+  return colorNumber;
 }
 
 function makeSquare(posX, posY, dim) {
   this.posX = posX;
   this.posY = posY;
   this.dim = dim;
+  
 }
 
 function setup() {
@@ -46,7 +55,7 @@ function draw() {
 
   // Set the canvas size based on the scaled dimensions
   resizeCanvas(800 * scaleFactor, 800 * scaleFactor);
-  
+
   scale(scaleFactor);
 
   drawGrid();
@@ -56,6 +65,8 @@ function draw() {
 }
 
 function constructRandomGrid() {
+  squareInfo = []; // Clear the array
+
   // size of the padding between grid and sketch borders
   padding = 0;
 
@@ -119,13 +130,16 @@ function constructIrregularGrid(sizesArr) {
 }
 
 function drawGrid() {
-
   for (let n = 0; n < squareInfo.length; n++) {
     s = squareInfo[n];
     
-    let windowColour = pickColour();
-    colourInfo.add(windowColour.number);
+    let windowColour = colorSequence[n];
+    console.log(colorSequence)
+    console.log(windowColour)
+    console.log(windowColour.r)
+
     drawWindow(s.posX * gridSpacing + padding, s.posY * gridSpacing + padding, s.dim * gridSpacing, s.dim * gridSpacing, windowColour);
+    colourInfo.add(getNumber(windowColour));
 
   // Set Traits
   hl.token.setTraits({
@@ -345,22 +359,6 @@ function drawWindow(x, y, w, h, windowColour) {
 
 }
 
-// Not working - changes colours!
-// /*
 function windowResized() {
   resizeCanvas(800, 800);
-}
-
-/*
- * Keyboard shortcuts for saving, redrawing, etc.
- */
-function keyTyped() {
-  switch (key) {
-    case "s":
-      saveCanvas();
-      break;
-    case "r":
-      redraw();
-      break;
-  }
 }
