@@ -8,7 +8,7 @@ function pickColour() {
     { r: 255, g: 255, b: 255 }, // White
     { r: 0, g: 0, b: 0 } // Black
   ];
-  return random(allowedColors);
+  return hl.randomElement(allowedColors);
 }
 
 function makeSquare(posX, posY, dim) {
@@ -38,7 +38,7 @@ function constructRandomGrid() {
   padding = 0;
 
   // number of rows and columns of the grid (random value)
-  gridDivs = int(random(1, 8))
+  gridDivs = hl.randomInt(1, 8);
   // actual spacing between grid points (adjusted to fill the canvas)
   gridSpacing = width / gridDivs;
 
@@ -62,7 +62,7 @@ function constructIrregularGrid(sizesArr) {
   for (let x = 0; x < gridDivs - max(sizesArr) + 1; x++) {
     for (let y = 0; y < gridDivs - max(sizesArr) + 1; y++) {
 
-      dim = random(sizesArr);
+      dim = hl.randomElement(sizesArr);
 
       fits = true;
 
