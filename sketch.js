@@ -115,8 +115,8 @@ function drawGrid() {
 
   // Set Traits
   hl.token.setTraits({
-    "Number of Windows": squareInfo.length,
-    "Number of Colours": colourInfo.size,
+    "Windows": squareInfo.length,
+    "Colours": colourInfo.size,
   });
 
   // Also set a name and description for this token
