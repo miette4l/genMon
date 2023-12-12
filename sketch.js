@@ -134,9 +134,6 @@ function drawGrid() {
     s = squareInfo[n];
     
     let windowColour = colorSequence[n];
-    console.log(colorSequence)
-    console.log(windowColour)
-    console.log(windowColour.r)
 
     drawWindow(s.posX * gridSpacing + padding, s.posY * gridSpacing + padding, s.dim * gridSpacing, s.dim * gridSpacing, windowColour);
     colourInfo.add(getNumber(windowColour));
@@ -370,7 +367,3 @@ function windowResized() {
   // Set the canvas size
   resizeCanvas(newCanvasWidth, newCanvasHeight);
 }
-
-// function windowResized() {
-//   resizeCanvas(800, 800);
-// }
