@@ -12,7 +12,12 @@ function pickColour() {
     { r: 255, g: 255, b: 255 }, // White
     { r: 0, g: 0, b: 0 } // Black
   ];
-  return hl.randomElement(allowedColors);
+  let randomColor = hl.randomElement(allowedColors);
+
+  // Concatenate R, G, and B values into a 9-digit number
+  let colorNumber = randomColor.r * 1000000 + randomColor.g * 1000 + randomColor.b;
+
+  return { ...randomColor, number: colorNumber };
 }
 
 function makeSquare(posX, posY, dim) {
@@ -22,7 +27,7 @@ function makeSquare(posX, posY, dim) {
 }
 
 function setup() {
-  createCanvas(windowWidth, windowHeight);
+  createCanvas(800, 800);
   noLoop();
 
   noFill();
@@ -109,9 +114,8 @@ function drawGrid() {
     s = squareInfo[n];
     
     let windowColour = pickColour();
+    colourInfo.add(windowColour.number);
     drawWindow(s.posX * gridSpacing + padding, s.posY * gridSpacing + padding, s.dim * gridSpacing, s.dim * gridSpacing, windowColour);
-    colourInfo.add(windowColour);
-    
 
   // Set Traits
   hl.token.setTraits({
@@ -121,7 +125,6 @@ function drawGrid() {
 
   // Also set a name and description for this token
   hl.token.setName(`Mondrian's Desktop #${hl.tx.tokenId}`);
-
   }
 }
 
