@@ -29,23 +29,6 @@ function setup() {
   stroke(255);
   strokeWeight(4);
 
-  // Create an object defining the traits of our token
-  let traits = {
-    "Number of Squares": squareInfo.length,
-    "Number of Colours": colourInfo.length,
-    "Grid Divisions": gridDivs,
-    "Grid Spacing": gridSpacing,
-  };
-
-  // Set these traits so Highlight can read them
-  hl.token.setTraits(traits);
-
-  // Also set a name and description for this token
-  hl.token.setName(`Generative Mondrian #${hl.tx.tokenId}`);
-  hl.token.setDescription(
-    `This is an token generated as part of an example project for using hl-gen.js. It has ${squareInfo.length} windows with ${colourInfo.length} different colors. The timestamp of the mint was ${hl.tx.timestamp}. The minting wallet address was ${hl.tx.walletAddress}`
-  );
-
   // Construct the grid
   constructRandomGrid();
 }
@@ -128,9 +111,17 @@ function drawGrid() {
     let windowColour = pickColour();
     drawWindow(s.posX * gridSpacing + padding, s.posY * gridSpacing + padding, s.dim * gridSpacing, s.dim * gridSpacing, windowColour);
     colourInfo.add(windowColour);
+    
 
-    // rect(s.posX * gridSpacing + padding, s.posY * gridSpacing + padding,
-    //   s.dim * gridSpacing, s.dim * gridSpacing);
+  // Set Traits
+  hl.token.setTraits({
+    "Number of Windows": squareInfo.length,
+    "Number of Colours": colourInfo.size,
+  });
+
+  // Also set a name and description for this token
+  hl.token.setName(`Mondrian's Desktop #${hl.tx.tokenId}`);
+
   }
 }
 
