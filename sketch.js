@@ -31,14 +31,11 @@ function setup() {
 
   // Create an object defining the traits of our token
   let traits = {
-    "Number of Squares": squareInfo.length,
+    "Number of Windows": squareInfo.length,
     "Number of Colours": colourInfo.length,
     "Grid Divisions": gridDivs,
     "Grid Spacing": gridSpacing,
   };
-
-  // Set these traits so Highlight can read them
-  hl.token.setTraits(traits);
 
   // Also set a name and description for this token
   hl.token.setName(`Generative Mondrian #${hl.tx.tokenId}`);
@@ -129,8 +126,9 @@ function drawGrid() {
     drawWindow(s.posX * gridSpacing + padding, s.posY * gridSpacing + padding, s.dim * gridSpacing, s.dim * gridSpacing, windowColour);
     colourInfo.add(windowColour);
 
-    // rect(s.posX * gridSpacing + padding, s.posY * gridSpacing + padding,
-    //   s.dim * gridSpacing, s.dim * gridSpacing);
+    // Set the traits so Highlight can read them
+    hl.token.setTraits(traits);
+    
   }
 }
 
