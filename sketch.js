@@ -40,6 +40,15 @@ function setup() {
 
 function draw() {
   background(256);
+
+  // Dynamically scale the whole token to fit the window
+  let scaleFactor = min(windowWidth / 800, windowHeight / 800);
+
+  // Set the canvas size based on the scaled dimensions
+  resizeCanvas(800 * scaleFactor, 800 * scaleFactor);
+  
+  scale(scaleFactor);
+
   drawGrid();
 
   // Trigger the preview image
@@ -110,6 +119,7 @@ function constructIrregularGrid(sizesArr) {
 }
 
 function drawGrid() {
+
   for (let n = 0; n < squareInfo.length; n++) {
     s = squareInfo[n];
     
@@ -335,13 +345,11 @@ function drawWindow(x, y, w, h, windowColour) {
 
 }
 
-/*
- * Window resize
- */
+// Not working - changes colours!
+// /*
 function windowResized() {
-  resizeCanvas(windowWidth, windowHeight);
+  resizeCanvas(800, 800);
 }
-
 
 /*
  * Keyboard shortcuts for saving, redrawing, etc.
