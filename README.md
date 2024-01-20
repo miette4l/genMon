@@ -8,7 +8,9 @@ The series was listed on [Highlight.xyz](https://highlight.xyz/mint/6578c3155e67
 
 ## Mondrian's Desktop ##
 
-![md](https://github.com/miette4l/genMon/assets/35227798/83c95cba-4697-42d2-8709-781c1f76e81f)
+<p align="center">
+  <img src="https://github.com/miette4l/genMon/assets/35227798/83c95cba-4697-42d2-8709-781c1f76e81f" alt="md" width="50%" height="50%">
+</p>
 
 “Ultimately, however, the artist no longer needs a particular point in nature in order to achieve an image of beauty. As the universal becomes more conscious in him because the individual has lost its dominating influence, from this greater consciousness he spontaneously creates equilibrated relationships – complete harmony – the goal of art. He has then assimilated outwardness into himself: thus it remains within him – to move him. Piet Mondrian, ‘Nature, Reality and Abstract Reality’, 1920.
 
